@@ -1,0 +1,16 @@
+{
+  "builders": [
+    {
+      "type": "lxd",
+      "name": "elixir",
+      "image": "ubuntu:16.04",
+      "output_image": "elixir"
+    }
+ ],
+ "provisioners": [
+   {
+     "type": "shell",
+     "script": "provision.sh"
+   }
+ ]
+}
