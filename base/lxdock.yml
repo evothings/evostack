@@ -1,0 +1,36 @@
+# The whole group of machines prefix name
+name: evostack
+
+
+server: https://cloud-images.ubuntu.com/releases
+
+containers:
+  # The name of this container, will in LXC become evostack-elixir-xxyyzz
+  - name: elixir
+
+    # You can list available images using:
+    #   lxc image alias list images:
+    image: "16.04"
+
+    # We want this so we can mount directories
+    privileged: yes
+
+    # You can add names that will be added to /etc/hosts
+    hostnames:
+      - elixir.local
+
+    # Runs as root in /root
+    provisioning:
+      - type: shell
+        script: provision.sh
+
+    # For lxdock shell to use ubuntu user
+    shell:
+      user: ubuntu
+      home: /home/ubuntu
+    
+    # Makes the host directory visible inside
+    shares:
+      - source: /home/gokr/evo/evostack/base
+        dest: /home/ubuntu/host
+        set_host_acl: true
