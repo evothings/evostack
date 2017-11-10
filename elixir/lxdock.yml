@@ -1,7 +1,7 @@
 # The whole group of machines prefix name
 name: evostack
 
-
+# So we can use the official ubuntu: images instead
 server: https://cloud-images.ubuntu.com/releases
 
 containers:
@@ -9,10 +9,10 @@ containers:
   - name: elixir
 
     # You can list available images using:
-    #   lxc image alias list images:
+    #   lxc image alias list ubuntu:
     image: "16.04"
 
-    # We want this so we can mount directories
+    # We want this so we can mount directories and have proper perms
     privileged: yes
 
     # You can add names that will be added to /etc/hosts
@@ -22,7 +22,10 @@ containers:
     # Runs as root in /root
     provisioning:
       - type: shell
-        script: provision.sh
+        # Since we know we have a share we can use this trick to get logging
+        # in /root/provision.log
+        inline: bash /host/provision.sh >provision.log 2>&1
+        #script: provision.sh
 
     # For lxdock shell to use ubuntu user
     shell:
@@ -32,5 +35,5 @@ containers:
     # Makes the host directory visible inside
     shares:
       - source: /home/gokr/evo/evostack/base
-        dest: /home/ubuntu/host
-        set_host_acl: true
+        dest: /host
+        #set_host_acl: true

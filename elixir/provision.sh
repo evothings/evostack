@@ -21,7 +21,7 @@ apt-get -y install inotify-tools
 # Postgres and PostGIS
 apt-get -y install postgresql-9.6 postgresql-9.6-postgis-2.3 postgresql-contrib-9.6
 
-# Set password for postgres user
+# Set password for postgres user :)
 sudo -i -u postgres psql -c "ALTER USER postgres PASSWORD 'evostack99';"
 
 # Nodejs
@@ -35,3 +35,8 @@ sudo -i -u ubuntu mix local.hex --force
 # As ubuntu user, install Phoenix
 sudo -i -u ubuntu mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
 
+# Just print out versions
+elixir --version
+nodejs --version
+sudo -i -u ubuntu mix hex.info
+sudo -i -u ubuntu mix phx.new --version
